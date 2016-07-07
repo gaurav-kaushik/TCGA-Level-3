@@ -40,18 +40,18 @@ def get_dataframe_list(files, file_index, data_fields=('gene', 'raw_counts')):
 
 def get_metadata_tag(filename):
     """ Gets a filename (without extension) from a provided path """
-    UNCID = filename.split('/')[-1].split('.')[0]
-    TCGA = filename.split('/')[-1].split('.')[1]
+    # UNCID = filename.split('/')[-1].split('.')[0]
+    TCGA = filename.split('/')[-1].split('.')[1] # IMPORTANT! this will depend heavily on the file type, might make sense to invoke for GeneExpQuant only or make true parser based on data type
     return TCGA
 
 def merge_texts(files, file_index):
     """ merge the dataframes in your list """
     dfs, filenames = get_dataframe_list(files, file_index)
     # rename the columns of the first df
-    df = dfs[0].rename(columns={'raw_counts': 'raw_counts_' + get_metadata_tag(filenames[0])})
+    df = dfs[0].rename(columns={'raw_counts': 'raw_counts_' + get_metadata_tag(filenames[0])}) # IMPORTANT! raw_counts should be replaced with the text header(s)
     # enumerate over the list, merge, and rename columns
     for i, frame in enumerate(dfs[1:], 2):
-        try: df = df.merge(frame, on='gene').rename(columns={'raw_counts':'raw_counts_' + get_metadata_tag(filenames[i-1])})
+        try: df = df.merge(frame, on='gene').rename(columns={'raw_counts':'raw_counts_' + get_metadata_tag(filenames[i-1])}) # IMPORTANT! the "Gene" field is the variable among multiple data types
         except: continue
     return df
 
@@ -64,7 +64,7 @@ def save_csv(df, csv, output_filename, filename, header_opt=False, index_opt=Fal
 def get_transpose(df):
     """ get the transpose of your matrix (index by case) """
     df_transpose = df.transpose()
-    df_transpose = df_transpose.rename(index = {'gene':'case'})
+    df_transpose = df_transpose.rename(index = {'gene':'case'}) # IMPORTANT! the header here will depend on the data type
     return df_transpose
 
 def main(files, csv, transpose, output_filename, file_index, data_type):
@@ -73,7 +73,7 @@ def main(files, csv, transpose, output_filename, file_index, data_type):
     save_csv(df_gene, csv, output_filename, filename=str(output_filename) + '_by_gene.csv', header_opt=True)
     if transpose:
         save_csv(get_transpose(df_gene), csv, output_filename, filename=str(output_filename) + '_by_case.csv',
-                                        header_opt=False, index_opt=True)
+                                         header_opt=False, index_opt=True)
     return df_gene
 
 if __name__ == "__main__":
