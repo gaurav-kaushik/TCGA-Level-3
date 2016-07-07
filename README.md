@@ -1,7 +1,12 @@
-# Gene Expression Munger
+# Level 3 TCGA Data Tools
 
-A script for merging TCGA Level 3 RNAseq gene expression data (raw counts), along with the cwl.json files for use on the Seven Bridges Cancer Genomics Cloud.
+This project is for working on tools for munging/analyzing TCGA Level 3 data, along with the cwl.json files for use on the Seven Bridges Cancer Genomics Cloud.
 
-To test locally, use: `python munger.py -f Gene_Exp_Test/* -c`
+### gene\_expression\_munger
+This tool integrates RNAseq gene expression data (raw counts) into a clean matrix. When used on the Seven Bridges Cancer Genomics Cloud, it also produced a matrix of metadata attributes for each case analyzed.
 
-For testing the use of an index file: `python munger.py -r Gene_Exp_Test/test.index -c`
+To test locally: 
+`python gene_expression_munger.py -f Gene_Exp_Test/* -c`
+
+For testing the use of an index file: 
+`python gene_expression_munger.py -r Gene_Exp_Test/test.index -c`
