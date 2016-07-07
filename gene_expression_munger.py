@@ -1,13 +1,16 @@
 """
-usage: munger.py [-h] [-f FILES [FILES ...]] [-r INDEX_FILE] [-c] [-o OUTPUT_FILENAME]
+usage: gene_expression_munger.py [-h] [-f FILES [FILES ...]] [-c] [-t]
+                                 [-o OUTPUT_FILENAME] [-r FILE_INDEX]
+                                 [-d DATA_TYPE]
 
 optional arguments:
   -h, --help            show this help message and exit
   -f FILES [FILES ...], --files FILES [FILES ...]
                         TCGA Gene Expression TXT files
   -c, --csv
-  -r FILE_INDEX         A file with input files, one each line. Merged with -f files.
+  -t, --transpose
   -o OUTPUT_FILENAME, --output_filename OUTPUT_FILENAME
+  -r FILE_INDEX, --file_index FILE_INDEX
 """
 
 import pandas as pd
